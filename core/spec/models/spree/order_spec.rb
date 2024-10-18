@@ -1255,11 +1255,11 @@ describe Spree::Order, type: :model do
     end
   end
 
-  describe '#shipping_eq_billing_address' do
+  describe '#use_billing' do
     let!(:order) { create(:order) }
 
     context 'with only bill address' do
-      it { expect(order.shipping_eq_billing_address?).to eq(false) }
+      it { expect(order.use_billing).to eq(true) }
     end
 
     context 'blank addresses' do
@@ -1268,7 +1268,7 @@ describe Spree::Order, type: :model do
         order.ship_address = Spree::Address.new
       end
 
-      it { expect(order.shipping_eq_billing_address?).to eq(true) }
+      it { expect(order.use_billing).to eq(true) }
     end
 
     context 'no addresses' do
@@ -1277,7 +1277,7 @@ describe Spree::Order, type: :model do
         order.ship_address = nil
       end
 
-      it { expect(order.shipping_eq_billing_address?).to eq(true) }
+      it { expect(order.use_billing).to eq(true) }
     end
   end
 
